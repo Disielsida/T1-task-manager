@@ -8,6 +8,15 @@
   margin-bottom: 50px;
 }
 
+.titleBlock {
+  display: inline-block;
+}
+
+.titleUnderline {
+  width: 100%;
+  margin-top: 10px;
+}
+
 @media (max-width: 768px) {
   .appContainer {
     padding: 12px 12px 24px;

@@ -2,13 +2,13 @@ import React from 'react';
 import { Button, Tag, T } from '@admiral-ds/react-ui';
 import styles from './TaskItem.module.css';
 import type { Task } from '../../types/task';
+import { Link } from 'react-router-dom';
 
 type TaskItemProps = {
   task: Task;
-  onEdit: (id: string) => void;
 };
 
-export const TaskItem: React.FC<TaskItemProps> = ({ task, onEdit }) => {
+export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
   return (
   <div className={styles.card}>
     <div className={styles.body}>
@@ -34,14 +34,15 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task, onEdit }) => {
     </div>
 
     <div className={styles.footer}>
-      <Button
-        className={styles.button}
-        dimension="s"
-        appearance="secondary"
-        onClick={() => onEdit(task.id)}
-      >
-        Редактировать
-      </Button>
+      <Link to={`/task/${task.id}`}>
+        <Button
+          className={styles.button}
+          dimension="s"
+          appearance="secondary"
+        >
+          Редактировать
+        </Button>
+      </Link>
     </div>
   </div>
 );

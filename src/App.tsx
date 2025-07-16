@@ -1,24 +1,12 @@
-import { useState } from 'react';
-import { T, Link } from '@admiral-ds/react-ui';
-import { TaskList } from './components/TaskList/TaskList';
-import { initialTasks } from './data/initialTasks';
-import type { Task } from './types/task';
-import './index.css';
+import { Routes, Route } from 'react-router-dom';
+import { Home } from './pages/Home';
+import { TaskDetails } from './components/TaskDetails/TaskDetails.tsx';
 
 export default function App() {
-  const [tasks, setTasks] = useState<Task[]>(initialTasks);
-
-  const handleEdit = (id: string) => {
-    console.log('Редактировать задачу с id:', id);
-  };
-
   return (
-    <div className="appContainer">
-      <T font="Header/HL1" as="h1" className="pageTitle">
-        Менеджер задач
-      </T>
-      <TaskList tasks={tasks} onEdit={handleEdit} />
-    </div>
+    <Routes>
+      <Route path="/" element={<Home />} />
+      <Route path="/task/:id" element={<TaskDetails />} />
+    </Routes>
   );
 }
-

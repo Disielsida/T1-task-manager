@@ -5,14 +5,13 @@ import styles from './TaskList.module.css';
 
 interface TaskListProps {
   tasks: Task[];
-  onEdit: (id: string) => void;
 }
 
-export const TaskList: React.FC<TaskListProps> = ({ tasks, onEdit }) => {
+export const TaskList: React.FC<TaskListProps> = ({ tasks }) => {
   return (
     <div className={styles.grid}>
       {tasks.map((task) => (
-        <TaskItem key={task.id} task={task} onEdit={onEdit} />
+        <TaskItem key={task.id} task={task} />
       ))}
     </div>
   );
