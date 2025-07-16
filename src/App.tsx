@@ -1,8 +1,8 @@
 import { Routes, Route, useLocation, useNavigate } from 'react-router-dom';
 import { Home } from './pages/Home';
-import { TaskDetails } from './components/TaskDetails/TaskDetails.tsx';
+import { TaskDetails } from './components/TaskDetails';
 import { ROUTES } from './routes';
-import { Modal } from '@admiral-ds/react-ui';
+import {ModalEditTask} from './components/ModalEditTask'
 
 
 export default function App() {
@@ -13,6 +13,7 @@ export default function App() {
   const handleClose = () => {
     navigate(ROUTES.HOME);
   };
+
 
   return (
     <>
@@ -26,13 +27,9 @@ export default function App() {
           <Route
             path={ROUTES.TASK()}
             element={
-              <Modal
-                onClose={handleClose}
-                aria-labelledby="edit-task"
-                style={{ overflow: 'auto' }}
-              >
+              <ModalEditTask onClose={handleClose} labelledBy="edit-task">
                 <TaskDetails />
-              </Modal>
+              </ModalEditTask>
             }
           />
         </Routes>

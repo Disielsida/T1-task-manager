@@ -1,6 +1,6 @@
 import React from 'react';
 import { T, Divider } from '@admiral-ds/react-ui';
-import { TaskList } from '../components/TaskList/TaskList';
+import { TaskList } from '../components/TaskList';
 import { useTasks } from '../context/TasksContext';
 import '../index.css';
 

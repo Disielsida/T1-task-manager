@@ -41,4 +41,12 @@ export const initialTasks: Task[] = [
     status: 'In Progress',
     priority: 'High',
   },
+  {
+    id: '6',
+    title: 'Fix typo in homepage header',
+    description: 'Correct spelling mistake in the main banner.',
+    category: 'Bug',
+    status: 'To Do',
+    priority: 'Low',
+  }
 ];
