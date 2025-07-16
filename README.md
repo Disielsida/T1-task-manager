@@ -22,3 +22,19 @@
 
 Feature-based structure inspired by _Feature-Sliced Design_ and _Atomic Design Principles_.
 
+---
+
+## 📥 Installation
+
+### 1. Clone the repository
+git clone https://github.com/Disielsida/T1-task-manager.git
+cd t1-task-manager
+
+### 2. Install dependencies
+npm install
+
+### 2. Start development server
+npm run dev
+
+
+
