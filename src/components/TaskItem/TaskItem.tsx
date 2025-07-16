@@ -2,7 +2,7 @@ import React from 'react';
 import { Button, Tag, T } from '@admiral-ds/react-ui';
 import styles from './TaskItem.module.css';
 import type { Task } from '../../types/task';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import { ROUTES } from '../../routes';
 
 type TaskItemProps = {
@@ -10,6 +10,8 @@ type TaskItemProps = {
 };
 
 export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
+  const location = useLocation();
+  
   return (
   <div className={styles.card}>
     <div className={styles.body}>
@@ -35,7 +37,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
     </div>
 
     <div className={styles.footer}>
-      <Link to={ROUTES.TASK(task.id)}>
+      <Link to={ROUTES.TASK(task.id)} state={{backgroundLocation: location}}>
         <Button
           className={styles.button}
           dimension="s"
