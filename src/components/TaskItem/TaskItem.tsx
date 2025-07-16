@@ -3,6 +3,7 @@ import { Button, Tag, T } from '@admiral-ds/react-ui';
 import styles from './TaskItem.module.css';
 import type { Task } from '../../types/task';
 import { Link } from 'react-router-dom';
+import { ROUTES } from '../../routes';
 
 type TaskItemProps = {
   task: Task;
@@ -34,7 +35,7 @@ export const TaskItem: React.FC<TaskItemProps> = ({ task }) => {
     </div>
 
     <div className={styles.footer}>
-      <Link to={`/task/${task.id}`}>
+      <Link to={ROUTES.TASK(task.id)}>
         <Button
           className={styles.button}
           dimension="s"
