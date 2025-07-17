@@ -1,8 +1,7 @@
 .grid {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
   gap: 30px;
-  justify-content: flex-start;
 }
 
 @media (max-width: 768px) {

@@ -1,9 +1,9 @@
 .footer {
   padding: 16px 0;
   text-align: center;
-  max-width: 1200px;
-  margin: 0 auto;
   width: 100%;
+  margin-top: 0px;
+  margin-bottom: 0px;
 }
 
 .divider {
@@ -13,4 +13,10 @@
 
 .text {
   color: #6a6a6a;
+}
+
+@media (max-width: 768px) {
+  .footer {
+    margin: 0;
+  }
 }

@@ -1,9 +1,9 @@
-/* === Десктоп (и всё, кроме мобилок) === */
 .filtersRow {
   display: flex;
   flex-wrap: wrap;
   gap: 30px;
   margin-bottom: 30px;
+  justify-content: flex-start;
 }
 
 .categoryUnderline,
@@ -14,34 +14,35 @@
   border-radius: 0;
   padding: 10px 0;
   background-color: transparent;
-  /* Базовое поведение: без ограничения ширины */
+  box-sizing: border-box;
 }
 
-/* Цвета подчёркивания */
 .categoryUnderline {
   border-color: #32C665;
+  width: 187px;
 }
 
 .statusUnderline {
   border-color: #3A85FF;
+  width: 156px;
 }
 
 .priorityUnderline {
   border-color: #FF8D64;
+  width: 190px;
 }
 
-/* === Только для мобилок (≤768px) === */
 @media (max-width: 768px) {
   .filtersRow {
     gap: 12px;
-    justify-content: flex-start;
+    flex-direction: column;
+    align-items: stretch;
   }
 
   .categoryUnderline,
   .statusUnderline,
   .priorityUnderline {
-    flex: 0 0 50%;
-    max-width: 50%;
-    min-width: 240px; /* можно убрать или оставить как safeguard */
+    width: 50%;
+    flex: 0 0 100%;
   }
 }

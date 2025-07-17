@@ -5,10 +5,12 @@ import styles from './Footer.module.css';
 export const Footer: React.FC = () => {
   return (
     <footer className={styles.footer}>
-      <Divider className={styles.divider} />
-      <T font="Body/Body 2 Long" className={styles.text}>
-        © Т1. Все права защищены.
-      </T>
+      <div className="container">
+        <Divider className={styles.divider} />
+        <T font="Body/Body 2 Long" className={styles.text}>
+          © Т1. Все права защищены.
+        </T>
+      </div>
     </footer>
   );
 };

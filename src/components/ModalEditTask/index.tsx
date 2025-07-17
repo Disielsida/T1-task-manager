@@ -1,18 +1,17 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Modal } from '@admiral-ds/react-ui';
+import styles from './ModalEditTask.module.css';
 
 interface CustomModalProps {
   onClose: () => void;
   children: React.ReactNode;
   labelledBy?: string;
-  style?: React.CSSProperties;
 }
 
 export const ModalEditTask: React.FC<CustomModalProps> = ({
   onClose,
   children,
-  labelledBy = 'modal-title',
-  style,
+  labelledBy = 'modal-edit',
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
@@ -43,18 +42,26 @@ export const ModalEditTask: React.FC<CustomModalProps> = ({
     return () => document.removeEventListener('mousedown', handleClickOutside);
   }, [onClose, isSelectOpen]);
 
+  useEffect(() => {
+    document.documentElement.classList.add('modal-open');
+
+    return () => {
+      document.documentElement.classList.remove('modal-open');
+    };
+  }, []);
+
+
   return (
-    <Modal
-      aria-labelledby={labelledBy}
-      onClose={onClose}
-      style={{ overflow: 'auto', ...style }}
-    >
-      <div
-        ref={modalRef}
-        onFocusCapture={() => setIsSelectOpen(true)}
-        onBlurCapture={() => setIsSelectOpen(false)}
-      >
-        {children}
+    <Modal aria-labelledby={labelledBy} onClose={onClose}>
+      <div className={styles.modalWrapper}>
+        <div
+          className={styles.modalInner}
+          ref={modalRef}
+          onFocusCapture={() => setIsSelectOpen(true)}
+          onBlurCapture={() => setIsSelectOpen(false)}
+        >
+          {children}
+        </div>
       </div>
     </Modal>
   );

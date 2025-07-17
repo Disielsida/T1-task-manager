@@ -26,7 +26,7 @@ export const Home: React.FC = () => {
 
   return (
     <div className="pageLayout">
-      <div className="appContainer">
+      <div className="container">
         <div className="titleBlock">
           <div className="titleWithUnderline">
             <T font="Header/HL1" as="h1" className="pageTitle">
@@ -40,7 +40,6 @@ export const Home: React.FC = () => {
 
         <TaskList tasks={filteredTasks} />
       </div>
-
       <Footer />
     </div>
   );
