@@ -34,6 +34,7 @@ export const TaskFilters = () => {
           placeholder="Категория (все)"
           value={category}
           mode="select"
+          alignSelf="center"
           onChange={(e) => update('category', e.target.value)}
         >
           {renderOptions(categoryOptions, 'Категория (все)')}
@@ -45,6 +46,7 @@ export const TaskFilters = () => {
           placeholder="Статус (все)"
           value={status}
           mode="select"
+          alignSelf="center"
           onChange={(e) => update('status', e.target.value)}
         >
           {renderOptions(statusOptions, 'Статус (все)')}
@@ -56,6 +58,7 @@ export const TaskFilters = () => {
           placeholder="Приоритет (все)"
           value={priority}
           mode="select"
+          alignSelf="center"
           onChange={(e) => update('priority', e.target.value)}
         >
           {renderOptions(priorityOptions, 'Приоритет (все)')}
