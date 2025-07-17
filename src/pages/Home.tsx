@@ -1,9 +1,10 @@
 import React, { useMemo } from 'react';
-import { T, Divider } from '@admiral-ds/react-ui';
+import { T } from '@admiral-ds/react-ui';
 import { TaskList } from '../components/TaskList';
 import { useTasks } from '../context/TasksContext';
 import { useSearchParams } from 'react-router-dom';
 import { TaskFilters } from '../components/TaskFilters';
+import { Footer } from '../components/Footer';
 import '../index.css';
 
 export const Home: React.FC = () => {
@@ -24,17 +25,23 @@ export const Home: React.FC = () => {
   }, [tasks, category, status, priority]);
 
   return (
-    <div className="appContainer">
-      <div className="titleBlock">
-        <T font="Header/HL1" as="h1" className="pageTitle">
-          Менеджер задач
-          <Divider dimension="m" className="titleUnderline" />
-        </T>
+    <div className="pageLayout">
+      <div className="appContainer">
+        <div className="titleBlock">
+          <div className="titleWithUnderline">
+            <T font="Header/HL1" as="h1" className="pageTitle">
+              Менеджер задач
+            </T>
+            <div className="titleUnderline" />
+          </div>
 
-        <TaskFilters />
+          <TaskFilters />
+        </div>
+
+        <TaskList tasks={filteredTasks} />
       </div>
 
-      <TaskList tasks={filteredTasks} />
+      <Footer />
     </div>
   );
 };

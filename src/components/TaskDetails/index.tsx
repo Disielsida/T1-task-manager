@@ -1,6 +1,6 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
-import { InputField, Button, T, Divider, TextField, SelectField, Option } from '@admiral-ds/react-ui';
+import { InputField, Button, T, TextField, SelectField, Option } from '@admiral-ds/react-ui';
 import { useTasksForm } from '../../hooks/useTasksForm';
 import styles from './TaskDetails.module.css';
 import type { TaskCategory, TaskStatus, TaskPriority } from '../../types/task';
@@ -38,12 +38,14 @@ export const TaskDetails: React.FC = () => {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
-      <div className={styles.titleBlock}>
+     <div className={styles.titleBlock}>
+      <div className={styles.titleWithUnderline}>
         <T font="Header/HL3" as="h1" className={styles.heading}>
           Редактирование<br />задачи
-          <Divider dimension="m" className="titleUnderline" />
         </T>
+        <div className={styles.titleUnderline} />
       </div>
+    </div>
       
       <InputField
         label="Заголовок"
