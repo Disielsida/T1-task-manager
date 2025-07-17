@@ -15,6 +15,19 @@ export const ModalEditTask: React.FC<CustomModalProps> = ({
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
   const [isSelectOpen, setIsSelectOpen] = useState(false);
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mediaQuery.matches);
+
+    const handler = (e: MediaQueryListEvent) => {
+      setIsMobile(e.matches);
+    };
+
+    mediaQuery.addEventListener('change', handler);
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -44,24 +57,24 @@ export const ModalEditTask: React.FC<CustomModalProps> = ({
 
   useEffect(() => {
     document.documentElement.classList.add('modal-open');
-
     return () => {
       document.documentElement.classList.remove('modal-open');
     };
   }, []);
 
-
   return (
-    <Modal aria-labelledby={labelledBy} onClose={onClose}>
-      <div className={styles.modalWrapper}>
-        <div
-          className={styles.modalInner}
-          ref={modalRef}
-          onFocusCapture={() => setIsSelectOpen(true)}
-          onBlurCapture={() => setIsSelectOpen(false)}
-        >
-          {children}
-        </div>
+    <Modal
+      aria-labelledby={labelledBy}
+      onClose={onClose}
+      mobile={isMobile}
+    >
+      <div
+        ref={modalRef}
+        className={styles.modalContent}
+        onFocusCapture={() => setIsSelectOpen(true)}
+        onBlurCapture={() => setIsSelectOpen(false)}
+      >
+        {children}
       </div>
     </Modal>
   );

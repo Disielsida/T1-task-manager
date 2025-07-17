@@ -46,3 +46,12 @@
     flex: 0 0 100%;
   }
 }
+
+@media (max-width: 415px) {
+  .categoryUnderline,
+  .statusUnderline,
+  .priorityUnderline {
+    width: 70%;
+    flex: 0 0 100%;
+  }
+}

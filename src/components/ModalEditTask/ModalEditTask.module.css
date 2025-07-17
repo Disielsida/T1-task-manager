@@ -1,22 +1,17 @@
-.modalInner {
-  max-width: 600px;
+.modalContent {
   width: 100%;
-  margin: 0 auto;
-  padding: 0 15x;
+  max-width: 600px;
+  padding: 24px;
   box-sizing: border-box;
+  overflow: auto;
 }
 
 @media (max-width: 768px) {
-  .modalInner {
+  .modalContent {
     padding: 16px 12px;
   }
 }
 
-.modalWrapper {
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  padding: 16px;
-  overflow-x: hidden;
-  box-sizing: border-box;
+.modal {
+  width: 50%;
 }

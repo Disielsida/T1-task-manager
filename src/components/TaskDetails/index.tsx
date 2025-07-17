@@ -1,11 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { InputField, Button, T, TextField, SelectField, Option } from '@admiral-ds/react-ui';
 import { useTasksForm } from '../../hooks/useTasksForm';
 import styles from './TaskDetails.module.css';
 import type { TaskCategory, TaskStatus, TaskPriority } from '../../types/task';
 import { categoryOptions, statusOptions, priorityOptions } from '../../constants/taskOptions';
-
 
 export const TaskDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
@@ -18,6 +17,18 @@ export const TaskDetails: React.FC = () => {
     handleCancel,
     isValid,
   } = useTasksForm(id);
+
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mediaQuery.matches);
+
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mediaQuery.addEventListener('change', handler);
+
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
 
   if (!task) return null;
 
@@ -38,15 +49,15 @@ export const TaskDetails: React.FC = () => {
 
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
-     <div className={styles.titleBlock}>
-      <div className={styles.titleWithUnderline}>
-        <T font="Header/HL3" as="h1" className={styles.heading}>
-          Редактирование<br />задачи
-        </T>
-        <div className={styles.titleUnderline} />
+      <div className={styles.titleBlock}>
+        <div className={styles.titleWithUnderline}>
+          <T font={isMobile ? 'Header/H1' : 'Header/HL3'} as="h1" className={styles.heading}>
+            Редактирование<br />задачи
+          </T>
+          <div className={styles.titleUnderline} />
+        </div>
       </div>
-    </div>
-      
+
       <InputField
         label="Заголовок"
         value={task.title}
@@ -114,8 +125,6 @@ export const TaskDetails: React.FC = () => {
       >
         {renderSelectOptions(priorityOptions)}
       </SelectField>
-
-
 
       <div className={styles.buttons}>
         <Button dimension="m" appearance="secondary" onClick={handleCancel}>

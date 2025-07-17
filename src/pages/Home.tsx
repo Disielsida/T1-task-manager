@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useEffect, useState } from 'react';
 import { T } from '@admiral-ds/react-ui';
 import { TaskList } from '../components/TaskList';
 import { useTasks } from '../context/TasksContext';
@@ -24,12 +24,24 @@ export const Home: React.FC = () => {
     });
   }, [tasks, category, status, priority]);
 
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(max-width: 768px)');
+    setIsMobile(mediaQuery.matches);
+
+    const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
+    mediaQuery.addEventListener('change', handler);
+
+    return () => mediaQuery.removeEventListener('change', handler);
+  }, []);
+
   return (
     <div className="pageLayout">
       <div className="container">
         <div className="titleBlock">
           <div className="titleWithUnderline">
-            <T font="Header/HL1" as="h1" className="pageTitle">
+            <T font={isMobile ? 'Header/HL2' : 'Header/HL1'} as="h1" className="pageTitle">
               Менеджер задач
             </T>
             <div className="titleUnderline" />
