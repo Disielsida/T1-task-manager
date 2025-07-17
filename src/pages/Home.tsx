@@ -1,11 +1,28 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 import { T, Divider } from '@admiral-ds/react-ui';
 import { TaskList } from '../components/TaskList';
 import { useTasks } from '../context/TasksContext';
+import { useSearchParams } from 'react-router-dom';
+import { TaskFilters } from '../components/TaskFilters';
 import '../index.css';
 
 export const Home: React.FC = () => {
-  const { tasks } = useTasks(); 
+  const { tasks } = useTasks();
+  const [searchParams] = useSearchParams();
+
+  const category = searchParams.get('category') || 'All';
+  const status = searchParams.get('status') || 'All';
+  const priority = searchParams.get('priority') || 'All';
+
+  const filteredTasks = useMemo(() => {
+    return tasks.filter((task) => {
+      const matchCategory = category === 'All' || task.category === category;
+      const matchStatus = status === 'All' || task.status === status;
+      const matchPriority = priority === 'All' || task.priority === priority;
+      return matchCategory && matchStatus && matchPriority;
+    });
+  }, [tasks, category, status, priority]);
+
   return (
     <div className="appContainer">
       <div className="titleBlock">
@@ -13,8 +30,11 @@ export const Home: React.FC = () => {
           Менеджер задач
           <Divider dimension="m" className="titleUnderline" />
         </T>
+
+        <TaskFilters />
       </div>
-      <TaskList tasks={tasks} />
+
+      <TaskList tasks={filteredTasks} />
     </div>
   );
 };

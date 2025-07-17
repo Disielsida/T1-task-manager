@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Modal } from '@admiral-ds/react-ui';
 
 interface CustomModalProps {
@@ -15,28 +15,33 @@ export const ModalEditTask: React.FC<CustomModalProps> = ({
   style,
 }) => {
   const modalRef = useRef<HTMLDivElement>(null);
+  const [isSelectOpen, setIsSelectOpen] = useState(false);
 
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === 'Escape' && !isSelectOpen) {
         onClose();
       }
     };
 
     document.addEventListener('keydown', handleKeyDown);
     return () => document.removeEventListener('keydown', handleKeyDown);
-  }, [onClose]);
+  }, [onClose, isSelectOpen]);
 
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (modalRef.current && !modalRef.current.contains(e.target as Node)) {
+      if (
+        !isSelectOpen &&
+        modalRef.current &&
+        !modalRef.current.contains(e.target as Node)
+      ) {
         onClose();
       }
     };
 
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);
-  }, [onClose]);
+  }, [onClose, isSelectOpen]);
 
   return (
     <Modal
@@ -44,10 +49,13 @@ export const ModalEditTask: React.FC<CustomModalProps> = ({
       onClose={onClose}
       style={{ overflow: 'auto', ...style }}
     >
-      <div ref={modalRef}>
+      <div
+        ref={modalRef}
+        onFocusCapture={() => setIsSelectOpen(true)}
+        onBlurCapture={() => setIsSelectOpen(false)}
+      >
         {children}
       </div>
     </Modal>
   );
 };
-

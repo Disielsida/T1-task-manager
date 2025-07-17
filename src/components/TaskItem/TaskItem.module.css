@@ -36,6 +36,12 @@
   align-items: flex-start;
 }
 
+.description {
+  word-break: break-word;
+  overflow-wrap: break-word;
+  white-space: pre-wrap;
+}
+
 .title {
   font-size: 24px;
   font-weight: 500;

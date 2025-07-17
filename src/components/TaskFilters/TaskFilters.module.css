@@ -1,0 +1,30 @@
+.filtersRow {
+  display: flex;
+  gap: 30px;
+  flex-wrap: wrap;
+  margin-bottom: 30px;
+}
+
+.categoryUnderline {
+  border: none;
+  border-bottom: 2px solid #32C665;
+  border-radius: 0;
+  padding: 10px 0;
+  background-color: transparent;
+}
+
+.statusUnderline {
+  border: none;
+  border-bottom: 2px solid #3A85FF;
+  border-radius: 0;
+  padding: 10px 0;
+  background-color: transparent;
+}
+
+.priorityUnderline {
+  border: none;
+  border-bottom: 2px solid #FF8D64;
+  border-radius: 0;
+  padding: 10px 0;
+  background-color: transparent;
+}

@@ -14,7 +14,6 @@ export default function App() {
     navigate(ROUTES.HOME);
   };
 
-
   return (
     <>
       <Routes location={backgroundLocation || location}>
