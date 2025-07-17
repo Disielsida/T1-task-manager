@@ -91,7 +91,6 @@ export const TaskDetails: React.FC = () => {
         extraText={errors.category}
         dimension="m"
         data-container-id="categorySelect"
-        alignSelf="center"
       >
         {renderSelectOptions(categoryOptions)}
       </SelectField>
@@ -106,7 +105,6 @@ export const TaskDetails: React.FC = () => {
         extraText={errors.status}
         dimension="m"
         data-container-id="statusSelect"
-        alignSelf="center"
       >
         {renderSelectOptions(statusOptions)}
       </SelectField>
@@ -121,7 +119,6 @@ export const TaskDetails: React.FC = () => {
         extraText={errors.priority}
         dimension="m"
         data-container-id="prioritySelect"
-        alignSelf="center"
       >
         {renderSelectOptions(priorityOptions)}
       </SelectField>
