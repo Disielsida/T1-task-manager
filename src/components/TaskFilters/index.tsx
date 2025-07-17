@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { categoryOptions, statusOptions, priorityOptions } from '../../constants/taskOptions';
 import styles from './TaskFilters.module.css';
 
+
 const renderOptions = <T extends string>(options: { id: T; label: string }[], allLabel: string) => [
   <Option key="All" value="All">
     {allLabel}
