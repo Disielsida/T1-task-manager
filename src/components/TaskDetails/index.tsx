@@ -84,7 +84,7 @@ export const TaskDetails: React.FC = () => {
       <SelectField
         label="Категория"
         placeholder="Выберите категорию"
-        mode="searchSelect"
+        mode="select"
         value={task.category}
         onChange={(e) => handleChange('category', e.target.value as TaskCategory)}
         status={errors.category ? 'error' : undefined}
@@ -99,7 +99,7 @@ export const TaskDetails: React.FC = () => {
       <SelectField
         label="Статус"
         placeholder="Выберите статус"
-        mode="searchSelect"
+        mode="select"
         value={task.status}
         onChange={(e) => handleChange('status', e.target.value as TaskStatus)}
         status={errors.status ? 'error' : undefined}
@@ -114,7 +114,7 @@ export const TaskDetails: React.FC = () => {
       <SelectField
         label="Приоритет"
         placeholder="Выберите приоритет"
-        mode="searchSelect"
+        mode="select"
         value={task.priority}
         onChange={(e) => handleChange('priority', e.target.value as TaskPriority)}
         status={errors.priority ? 'error' : undefined}

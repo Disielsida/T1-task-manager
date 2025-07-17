@@ -33,6 +33,7 @@ export const TaskFilters = () => {
         <SelectField
           placeholder="Категория (все)"
           value={category}
+          mode="select"
           onChange={(e) => update('category', e.target.value)}
         >
           {renderOptions(categoryOptions, 'Категория (все)')}
@@ -43,6 +44,7 @@ export const TaskFilters = () => {
         <SelectField
           placeholder="Статус (все)"
           value={status}
+          mode="select"
           onChange={(e) => update('status', e.target.value)}
         >
           {renderOptions(statusOptions, 'Статус (все)')}
@@ -53,6 +55,7 @@ export const TaskFilters = () => {
         <SelectField
           placeholder="Приоритет (все)"
           value={priority}
+          mode="select"
           onChange={(e) => update('priority', e.target.value)}
         >
           {renderOptions(priorityOptions, 'Приоритет (все)')}
