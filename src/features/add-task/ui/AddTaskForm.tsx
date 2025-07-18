@@ -1,28 +1,26 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import {
   InputField,
-  Button,
-  T,
   TextField,
   SelectField,
   Option,
+  Button,
+  T,
 } from "@admiral-ds/react-ui";
-import { useTaskForm } from "@features/edit-task/model/useEditTaskForm";
-import styles from "./TaskDetails.module.css";
-import type {
-  TaskCategory,
-  TaskStatus,
-  TaskPriority,
-} from "@shared/types/task";
+import { useAddTaskForm } from "@features/add-task/model/useAddTaskForm";
+import styles from "./AddTaskForm.module.css";
 import {
   categoryOptions,
   statusOptions,
   priorityOptions,
 } from "@shared/constants/taskOptions";
+import type {
+  TaskCategory,
+  TaskStatus,
+  TaskPriority,
+} from "@shared/types/task";
 
-export const TaskDetails: React.FC = () => {
-  const { id } = useParams<{ id: string }>();
+export const AddTaskForm: React.FC = () => {
   const {
     task,
     errors,
@@ -31,21 +29,17 @@ export const TaskDetails: React.FC = () => {
     handleSave,
     handleCancel,
     isValid,
-  } = useTaskForm(id);
+  } = useAddTaskForm();
 
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 768px)");
     setIsMobile(mediaQuery.matches);
-
     const handler = (e: MediaQueryListEvent) => setIsMobile(e.matches);
     mediaQuery.addEventListener("change", handler);
-
     return () => mediaQuery.removeEventListener("change", handler);
   }, []);
-
-  if (!task) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -71,9 +65,7 @@ export const TaskDetails: React.FC = () => {
             as="h1"
             className={styles.heading}
           >
-            Редактирование
-            <br />
-            задачи
+            Новая задача
           </T>
           <div className={styles.titleUnderline} />
         </div>
@@ -99,7 +91,6 @@ export const TaskDetails: React.FC = () => {
         dimension="m"
         rows={4}
         maxRows={6}
-        data-container-id="descriptionField"
       />
 
       <SelectField
@@ -113,7 +104,6 @@ export const TaskDetails: React.FC = () => {
         status={errors.category ? "error" : undefined}
         extraText={errors.category}
         dimension="m"
-        data-container-id="categorySelect"
       >
         {renderSelectOptions(categoryOptions)}
       </SelectField>
@@ -127,7 +117,6 @@ export const TaskDetails: React.FC = () => {
         status={errors.status ? "error" : undefined}
         extraText={errors.status}
         dimension="m"
-        data-container-id="statusSelect"
       >
         {renderSelectOptions(statusOptions)}
       </SelectField>
@@ -143,23 +132,21 @@ export const TaskDetails: React.FC = () => {
         status={errors.priority ? "error" : undefined}
         extraText={errors.priority}
         dimension="m"
-        data-container-id="prioritySelect"
       >
         {renderSelectOptions(priorityOptions)}
       </SelectField>
 
       <div className={styles.buttons}>
-        <Button dimension="m" appearance="secondary" onClick={handleCancel}>
+        <Button appearance="secondary" onClick={handleCancel} dimension="m">
           Отмена
         </Button>
         <Button
-          dimension="m"
           appearance="primary"
-          onClick={handleSave}
-          disabled={!isValid}
           type="submit"
+          disabled={!isValid}
+          dimension="m"
         >
-          Сохранить
+          Создать
         </Button>
       </div>
     </form>

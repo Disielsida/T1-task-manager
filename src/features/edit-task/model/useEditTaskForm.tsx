@@ -4,7 +4,10 @@ import { useAppDispatch } from "@shared/hooks/useAppDispatch";
 import { useAppSelector } from "@shared/hooks/useAppSelector";
 import { selectTaskById, updateTask } from "@entities/task/model/taskSlice";
 import { ROUTES } from "@shared/config/routes";
-import { validateAllFields, validateField } from "./validators";
+import {
+  validateAllFields,
+  validateField,
+} from "@shared/validators/formValidators";
 import type { Task } from "@shared/types/task";
 
 export const useTaskForm = (id?: string) => {
@@ -29,13 +32,19 @@ export const useTaskForm = (id?: string) => {
     }
   }, [id, existingTask, navigate]);
 
+  // 🔍 Слушаем кастомное событие модалки
   useEffect(() => {
-    if (task && inputRef.current && !hasFocused.current) {
-      inputRef.current.focus();
-      inputRef.current.select();
-      hasFocused.current = true;
-    }
-  }, [task]);
+    const handleFocus = () => {
+      if (inputRef.current && !hasFocused.current) {
+        inputRef.current.focus();
+        inputRef.current.select();
+        hasFocused.current = true;
+      }
+    };
+
+    document.addEventListener("modal-opened", handleFocus);
+    return () => document.removeEventListener("modal-opened", handleFocus);
+  }, []);
 
   const handleChange = <K extends keyof Task>(field: K, value: Task[K]) => {
     if (!task) return;

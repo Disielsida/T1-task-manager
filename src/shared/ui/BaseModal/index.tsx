@@ -39,6 +39,10 @@ export const BaseModal: React.FC<BaseModalProps> = ({
 
   useEffect(() => {
     document.documentElement.classList.add("modal-open");
+    requestAnimationFrame(() => {
+      document.dispatchEvent(new Event("modal-opened"));
+    });
+
     return () => {
       document.documentElement.classList.remove("modal-open");
     };

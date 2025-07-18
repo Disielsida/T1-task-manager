@@ -1,7 +1,7 @@
 .filtersRow {
   display: flex;
   flex-wrap: wrap;
-  gap: 30px;
+  gap: 33px;
   margin-bottom: 30px;
   justify-content: flex-start;
 }
@@ -15,21 +15,19 @@
   padding: 10px 0;
   background-color: transparent;
   box-sizing: border-box;
+  width: 190px;
 }
 
 .categoryUnderline {
   border-color: #32C665;
-  width: 187px;
 }
 
 .statusUnderline {
   border-color: #3A85FF;
-  width: 156px;
 }
 
 .priorityUnderline {
   border-color: #FF8D64;
-  width: 190px;
 }
 
 @media (max-width: 768px) {

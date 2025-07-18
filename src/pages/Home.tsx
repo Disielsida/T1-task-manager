@@ -2,14 +2,19 @@ import React, { useMemo, useEffect, useState } from "react";
 import { T } from "@admiral-ds/react-ui";
 import { TaskList } from "@widgets/TaskList";
 import { useAppSelector } from "@shared/hooks/useAppSelector";
-import { useSearchParams } from "react-router-dom";
+import { useSearchParams, useNavigate, useLocation } from "react-router-dom";
 import { TaskFilters } from "@widgets/TaskFilters";
 import { Footer } from "@widgets/Footer";
+import { ServicePlusCircleOutline } from "@admiral-ds/icons";
+import { ROUTES } from "@shared/config/routes";
 import "@shared/styles/index.css";
 
 export const Home: React.FC = () => {
   const tasks = useAppSelector((state) => state.tasks.tasks);
   const [searchParams] = useSearchParams();
+
+  const navigate = useNavigate();
+  const location = useLocation();
 
   const category = searchParams.get("category") || "All";
   const status = searchParams.get("status") || "All";
@@ -36,18 +41,34 @@ export const Home: React.FC = () => {
     return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
+  const handleAddClick = () => {
+    navigate(ROUTES.ADD_TASK, {
+      state: { backgroundLocation: location },
+    });
+  };
+
   return (
     <div className="pageLayout">
       <div className="container">
         <div className="titleBlock">
           <div className="titleWithUnderline">
-            <T
-              font={isMobile ? "Header/HL2" : "Header/HL1"}
-              as="h1"
-              className="pageTitle"
-            >
-              Менеджер задач
-            </T>
+            <div className="titleRow">
+              <T
+                font={isMobile ? "Header/HL2" : "Header/HL1"}
+                as="h1"
+                className="pageTitle"
+              >
+                Менеджер задач
+              </T>
+              <button
+                className="addTaskBtn"
+                title="Добавить задачу"
+                aria-label="Добавить задачу"
+                onClick={handleAddClick}
+              >
+                <ServicePlusCircleOutline />
+              </button>
+            </div>
             <div className="titleUnderline" />
           </div>
 
