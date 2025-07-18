@@ -8,7 +8,7 @@ import {
   SelectField,
   Option,
 } from "@admiral-ds/react-ui";
-import { useEditTasksForm } from "@features/edit-task/model/useEditTaskForm";
+import { useTaskForm } from "@features/edit-task/model/useTaskForm";
 import styles from "./TaskDetails.module.css";
 import type {
   TaskCategory,
@@ -31,7 +31,7 @@ export const TaskDetails: React.FC = () => {
     handleSave,
     handleCancel,
     isValid,
-  } = useEditTasksForm(id);
+  } = useTaskForm(id);
 
   const [isMobile, setIsMobile] = useState(false);
 

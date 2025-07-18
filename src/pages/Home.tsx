@@ -1,14 +1,14 @@
 import React, { useMemo, useEffect, useState } from "react";
 import { T } from "@admiral-ds/react-ui";
-import { TaskList } from "@widgets//TaskList";
-import { useTasks } from "../context/TasksContext";
+import { TaskList } from "@widgets/TaskList";
+import { useAppSelector } from "@shared/hooks/useAppSelector";
 import { useSearchParams } from "react-router-dom";
 import { TaskFilters } from "@widgets/TaskFilters";
 import { Footer } from "@widgets/Footer";
 import "@shared/styles/index.css";
 
 export const Home: React.FC = () => {
-  const { tasks } = useTasks();
+  const tasks = useAppSelector((state) => state.tasks.tasks);
   const [searchParams] = useSearchParams();
 
   const category = searchParams.get("category") || "All";

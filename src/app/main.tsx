@@ -6,21 +6,21 @@ import {
   DropdownProvider,
   FontsVTBGroup,
 } from "@admiral-ds/react-ui";
-import AppRouter from "@app/providers/routing/AppRouter";
 import { BrowserRouter } from "react-router-dom";
 
-import { TasksProvider } from "../context/TasksContext";
+import AppRouter from "@app/providers/routing/AppRouter";
+import { StoreProvider } from "./providers/StoreProvider";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeProvider theme={LIGHT_THEME}>
       <DropdownProvider>
         <FontsVTBGroup />
-        <TasksProvider>
+        <StoreProvider>
           <BrowserRouter>
             <AppRouter />
           </BrowserRouter>
-        </TasksProvider>
+        </StoreProvider>
       </DropdownProvider>
     </ThemeProvider>
   </React.StrictMode>,
