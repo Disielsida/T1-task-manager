@@ -8,35 +8,40 @@ type TaskState = {
 };
 
 /**
- * Загружаем задачи из localStorage или сохраняем начальные, если их нет.
+ * Загружаем задачи из localStorage.
+ * Если список пуст — используем initialTasks и сразу сохраняем их.
  */
 const loadedTasks = loadTasks();
-if (loadedTasks.length === 0) {
+const isEmpty = loadedTasks.length === 0;
+const effectiveTasks = isEmpty ? initialTasks : loadedTasks;
+
+if (isEmpty) {
   saveTasks(initialTasks);
 }
 
 const initialState: TaskState = {
-  tasks: loadedTasks ?? initialTasks,
+  tasks: effectiveTasks,
 };
 
 /**
  * Redux-срез для управления задачами:
- * - добавление,
- * - обновление,
- * - удаление.
- * Все изменения синхронизируются с localStorage.
+ * - добавление;
+ * - обновление;
+ * - удаление;
+ * - селекторы;
+ * - синхронизация с localStorage.
  */
 const taskSlice = createSlice({
   name: "tasks",
   initialState,
   reducers: {
     /**
-     * Обновляет задачу и сохраняет изменения в localStorage.
+     * Обновляет задачу по id и сохраняет в localStorage.
+     * @param state Текущее состояние
+     * @param action Обновлённая задача
      */
     updateTask(state, action: PayloadAction<Task>) {
-      const index = state.tasks.findIndex(
-        (task) => task.id === action.payload.id,
-      );
+      const index = state.tasks.findIndex((task) => task.id === action.payload.id);
       if (index !== -1) {
         state.tasks[index] = action.payload;
         saveTasks(state.tasks);
@@ -45,6 +50,8 @@ const taskSlice = createSlice({
 
     /**
      * Добавляет новую задачу и сохраняет в localStorage.
+     * @param state Текущее состояние
+     * @param action Новая задача
      */
     addTask(state, action: PayloadAction<Task>) {
       state.tasks.push(action.payload);
@@ -52,7 +59,9 @@ const taskSlice = createSlice({
     },
 
     /**
-     * Удаляет задачу по id и сохраняет результат в localStorage.
+     * Удаляет задачу по id и сохраняет в localStorage.
+     * @param state Текущее состояние
+     * @param action id задачи для удаления
      */
     deleteTask(state, action: PayloadAction<string>) {
       state.tasks = state.tasks.filter((task) => task.id !== action.payload);
@@ -61,11 +70,19 @@ const taskSlice = createSlice({
   },
 
   selectors: {
-    /** Возвращает все задачи. */
+    /**
+     * Получить все задачи из состояния.
+     * @param state Состояние среза
+     */
     selectTasks: (state) => state.tasks,
 
-    /** Возвращает задачу по её id. */
-    selectTaskById: (state, id: string) => state.tasks.find((t) => t.id === id),
+    /**
+     * Получить задачу по её id.
+     * @param state Состояние среза
+     * @param id Идентификатор задачи
+     */
+    selectTaskById: (state, id: string) =>
+      state.tasks.find((task) => task.id === id),
   },
 });
 
