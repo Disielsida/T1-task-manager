@@ -66,15 +66,14 @@ html.modal-open {
   transition: opacity 0.15s ease;
 }
 
-.addTaskBtn:hover {
-  opacity: 0.6;
-}
-
-
 .addTaskBtn svg {
   width: 1em;
   height: 1em;
   display: block;
+}
+
+.addTaskBtn:hover {
+  opacity: 0.6;
 }
 
 .titleUnderline {
