@@ -73,12 +73,12 @@ export const AddTaskForm: React.FC = () => {
 
       <InputField
         label="Заголовок"
+        placeholder="Введите заголовок задачи"
         value={task.title}
         onChange={(e) => handleChange("title", e.target.value)}
-        placeholder="Введите заголовок задачи"
-        ref={inputRef}
         status={errors.title ? "error" : undefined}
         extraText={errors.title}
+        ref={inputRef}
       />
 
       <TextField

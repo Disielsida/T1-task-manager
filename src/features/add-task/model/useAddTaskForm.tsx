@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useAppDispatch } from "@shared/hooks/useAppDispatch";
 import { addTask } from "@entities/task/model/taskSlice";
@@ -24,6 +24,21 @@ export const useAddTaskForm = () => {
 
   const [errors, setErrors] = useState<Partial<Record<keyof Task, string>>>({});
   const inputRef = useRef<HTMLInputElement>(null);
+  const hasFocused = useRef(false);
+
+  useEffect(() => {
+    if (hasFocused.current) return;
+
+    const raf = requestAnimationFrame(() => {
+      if (inputRef.current) {
+        inputRef.current.focus();
+        inputRef.current.select();
+        hasFocused.current = true;
+      }
+    });
+
+    return () => cancelAnimationFrame(raf);
+  }, []);
 
   const handleChange = <K extends keyof Task>(field: K, value: Task[K]) => {
     const updated = { ...task, [field]: value };
