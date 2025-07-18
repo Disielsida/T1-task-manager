@@ -44,6 +44,7 @@ export default tseslint.config([
       'react/jsx-uses-react': 'off',
       'react/react-in-jsx-scope': 'off',
       'prettier/prettier': 'warn',
+      "@typescript-eslint/no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }]
     },
   }
 ])
