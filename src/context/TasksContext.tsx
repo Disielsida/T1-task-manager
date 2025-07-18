@@ -1,6 +1,6 @@
-import React, { createContext, useContext, useState } from 'react';
-import { initialTasks } from '../data/initialTasks';
-import type { Task } from '../types/task';
+import React, { createContext, useContext, useState } from "react";
+import { initialTasks } from "@shared/data/initialTasks";
+import type { Task } from "@shared/types/task";
 
 type TasksContextType = {
   tasks: Task[];
@@ -10,14 +10,18 @@ type TasksContextType = {
 
 const TasksContext = createContext<TasksContextType | undefined>(undefined);
 
-export const TasksProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
+export const TasksProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
   const [tasks, setTasks] = useState<Task[]>(initialTasks);
 
   const getTask = (id: string) => tasks.find((task) => task.id === id);
 
   const updateTask = (updatedTask: Task) => {
     setTasks((prevTasks) =>
-      prevTasks.map((task) => (task.id === updatedTask.id ? updatedTask : task))
+      prevTasks.map((task) =>
+        task.id === updatedTask.id ? updatedTask : task,
+      ),
     );
   };
 
@@ -31,7 +35,7 @@ export const TasksProvider: React.FC<{ children: React.ReactNode }> = ({ childre
 export const useTasks = (): TasksContextType => {
   const context = useContext(TasksContext);
   if (!context) {
-    throw new Error('useTasks must be used within a TasksProvider');
+    throw new Error("useTasks must be used within a TasksProvider");
   }
   return context;
 };

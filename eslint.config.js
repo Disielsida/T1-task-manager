@@ -45,11 +45,5 @@ export default tseslint.config([
       'react/react-in-jsx-scope': 'off',
       'prettier/prettier': 'warn',
     },
-    parserOptions: {
-      ecmaFeatures: { jsx: true },
-      ecmaVersion: 'latest',
-      sourceType: 'module',
-      project: './tsconfig.json',
-    }
-  },
+  }
 ])
