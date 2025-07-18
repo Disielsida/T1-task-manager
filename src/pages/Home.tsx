@@ -9,17 +9,28 @@ import { ServicePlusCircleOutline } from "@admiral-ds/icons";
 import { ROUTES } from "@shared/config/routes";
 import "@shared/styles/index.css";
 
+/**
+ * Главная страница приложения "Менеджер задач".
+ * Отображает список задач с возможностью фильтрации по категории, статусу и приоритету.
+ * Также содержит кнопку для добавления новой задачи через модальное окно.
+ */
 export const Home: React.FC = () => {
+  // Получаем все задачи из Redux-хранилища
   const tasks = useAppSelector((state) => state.tasks.tasks);
+
+  // Чтение query-параметров для фильтрации задач
   const [searchParams] = useSearchParams();
-
-  const navigate = useNavigate();
-  const location = useLocation();
-
   const category = searchParams.get("category") || "All";
   const status = searchParams.get("status") || "All";
   const priority = searchParams.get("priority") || "All";
 
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  /**
+   * Фильтруем задачи в зависимости от выбранных параметров.
+   * Используем useMemo для мемоизации результата.
+   */
   const filteredTasks = useMemo(() => {
     return tasks.filter((task) => {
       const matchCategory = category === "All" || task.category === category;
@@ -31,6 +42,7 @@ export const Home: React.FC = () => {
 
   const [isMobile, setIsMobile] = useState(false);
 
+  // Отслеживаем размер экрана для адаптации заголовка
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 768px)");
     setIsMobile(mediaQuery.matches);
@@ -41,6 +53,10 @@ export const Home: React.FC = () => {
     return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
+  /**
+   * Открытие формы добавления задачи — открывается в модальном окне
+   * за счёт передачи backgroundLocation.
+   */
   const handleAddClick = () => {
     navigate(ROUTES.ADD_TASK, {
       state: { backgroundLocation: location },
@@ -60,6 +76,8 @@ export const Home: React.FC = () => {
               >
                 Менеджер задач
               </T>
+
+              {/* Кнопка для добавления новой задачи */}
               <button
                 className="addTaskBtn"
                 title="Добавить задачу"
@@ -69,14 +87,19 @@ export const Home: React.FC = () => {
                 <ServicePlusCircleOutline />
               </button>
             </div>
+
             <div className="titleUnderline" />
           </div>
 
+          {/* Компонент фильтров (query-based) */}
           <TaskFilters />
         </div>
 
+        {/* Список отфильтрованных задач */}
         <TaskList tasks={filteredTasks} />
       </div>
+
+      {/* Нижний колонтитул */}
       <Footer />
     </div>
   );

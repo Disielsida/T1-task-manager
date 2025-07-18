@@ -21,8 +21,14 @@ import {
   priorityOptions,
 } from "@shared/constants/taskOptions";
 
+/**
+ * Компонент формы редактирования задачи.
+ * Загружает данные задачи по `id` из URL, позволяет изменить поля и сохранить изменения.
+ */
 export const TaskDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
+
+  // Хук управления формой редактирования задачи (в т.ч. валидация, автофокус, переход)
   const {
     task,
     errors,
@@ -35,6 +41,7 @@ export const TaskDetails: React.FC = () => {
 
   const [isMobile, setIsMobile] = useState(false);
 
+  // Отслеживаем изменение размера экрана для адаптации заголовка
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 768px)");
     setIsMobile(mediaQuery.matches);
@@ -45,13 +52,20 @@ export const TaskDetails: React.FC = () => {
     return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
+  // Не рендерим форму, если задача не найдена
   if (!task) return null;
 
+  /**
+   * Обработчик отправки формы — вызывает сохранение, если все поля валидны.
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleSave();
   };
 
+  /**
+   * Отображение опций выпадающих списков (категория, статус, приоритет).
+   */
   const renderSelectOptions = <T extends string>(
     options: { id: T; label: string }[],
   ) => {
@@ -79,6 +93,7 @@ export const TaskDetails: React.FC = () => {
         </div>
       </div>
 
+      {/* Заголовок задачи */}
       <InputField
         label="Заголовок"
         value={task.title}
@@ -89,6 +104,7 @@ export const TaskDetails: React.FC = () => {
         extraText={errors.title}
       />
 
+      {/* Описание задачи */}
       <TextField
         label="Описание"
         placeholder="Введите описание задачи"
@@ -99,9 +115,9 @@ export const TaskDetails: React.FC = () => {
         dimension="m"
         rows={4}
         maxRows={6}
-        data-container-id="descriptionField"
       />
 
+      {/* Категория задачи */}
       <SelectField
         label="Категория"
         placeholder="Выберите категорию"
@@ -113,11 +129,11 @@ export const TaskDetails: React.FC = () => {
         status={errors.category ? "error" : undefined}
         extraText={errors.category}
         dimension="m"
-        data-container-id="categorySelect"
       >
         {renderSelectOptions(categoryOptions)}
       </SelectField>
 
+      {/* Статус задачи */}
       <SelectField
         label="Статус"
         placeholder="Выберите статус"
@@ -127,11 +143,11 @@ export const TaskDetails: React.FC = () => {
         status={errors.status ? "error" : undefined}
         extraText={errors.status}
         dimension="m"
-        data-container-id="statusSelect"
       >
         {renderSelectOptions(statusOptions)}
       </SelectField>
 
+      {/* Приоритет задачи */}
       <SelectField
         label="Приоритет"
         placeholder="Выберите приоритет"
@@ -143,11 +159,11 @@ export const TaskDetails: React.FC = () => {
         status={errors.priority ? "error" : undefined}
         extraText={errors.priority}
         dimension="m"
-        data-container-id="prioritySelect"
       >
         {renderSelectOptions(priorityOptions)}
       </SelectField>
 
+      {/* Кнопки управления */}
       <div className={styles.buttons}>
         <Button dimension="m" appearance="secondary" onClick={handleCancel}>
           Отмена

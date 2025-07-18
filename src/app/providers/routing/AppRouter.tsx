@@ -5,23 +5,32 @@ import { AddTaskForm } from "@features/add-task/ui/AddTaskForm";
 import { ROUTES } from "@shared/config/routes";
 import { BaseModal } from "@shared/ui/BaseModal";
 
+/**
+ * Главный компонент маршрутизации приложения.
+ * Обрабатывает как обычные маршруты, так и модальные окна через backgroundLocation.
+ */
 export default function App() {
   const location = useLocation();
   const backgroundLocation = location.state?.backgroundLocation;
   const navigate = useNavigate();
 
+  /**
+   * Закрытие модального окна, возвращает на главный экран.
+   */
   const handleClose = () => {
     navigate(ROUTES.HOME);
   };
 
   return (
     <>
+      {/* Основные маршруты (в том числе "на фоне" при открытии модального окна) */}
       <Routes location={backgroundLocation || location}>
         <Route path={ROUTES.HOME} element={<Home />} />
         <Route path={ROUTES.TASK()} element={<TaskDetails />} />
         <Route path={ROUTES.ADD_TASK} element={<AddTaskForm />} />
       </Routes>
 
+      {/* Отдельные модальные маршруты поверх текущей страницы */}
       {backgroundLocation && (
         <Routes>
           <Route

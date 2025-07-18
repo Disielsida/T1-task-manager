@@ -20,6 +20,11 @@ import type {
   TaskPriority,
 } from "@shared/types/task";
 
+/**
+ * Форма создания новой задачи.
+ * Содержит поля ввода и селекты с валидацией.
+ * Поддерживает адаптивность и автоматический фокус на первом поле.
+ */
 export const AddTaskForm: React.FC = () => {
   const {
     task,
@@ -33,6 +38,10 @@ export const AddTaskForm: React.FC = () => {
 
   const [isMobile, setIsMobile] = useState(false);
 
+  /**
+   * Хук следит за шириной экрана и обновляет состояние `isMobile`,
+   * чтобы адаптировать заголовок под мобильные устройства.
+   */
   useEffect(() => {
     const mediaQuery = window.matchMedia("(max-width: 768px)");
     setIsMobile(mediaQuery.matches);
@@ -41,11 +50,19 @@ export const AddTaskForm: React.FC = () => {
     return () => mediaQuery.removeEventListener("change", handler);
   }, []);
 
+  /**
+   * Обработчик отправки формы.
+   * Предотвращает поведение по умолчанию и вызывает сохранение.
+   */
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     handleSave();
   };
 
+  /**
+   * Генерация JSX-опций для компонента SelectField.
+   * @param options - массив объектов с id и label.
+   */
   const renderSelectOptions = <T extends string>(
     options: { id: T; label: string }[],
   ) => {
@@ -56,8 +73,13 @@ export const AddTaskForm: React.FC = () => {
     ));
   };
 
+  /**
+   * Форма добавления задачи с валидацией.
+   * Автоматически подставляет фокус на первый инпут.
+   */
   return (
     <form className={styles.container} onSubmit={handleSubmit}>
+      {/* Заголовок с адаптивным размером шрифта */}
       <div className={styles.titleBlock}>
         <div className={styles.titleWithUnderline}>
           <T
@@ -71,6 +93,7 @@ export const AddTaskForm: React.FC = () => {
         </div>
       </div>
 
+      {/* Поле заголовка задачи */}
       <InputField
         label="Заголовок"
         placeholder="Введите заголовок задачи"
@@ -78,9 +101,10 @@ export const AddTaskForm: React.FC = () => {
         onChange={(e) => handleChange("title", e.target.value)}
         status={errors.title ? "error" : undefined}
         extraText={errors.title}
-        ref={inputRef}
+        ref={inputRef} // фокус на это поле при монтировании
       />
 
+      {/* Поле описания задачи */}
       <TextField
         label="Описание"
         placeholder="Введите описание задачи"
@@ -93,6 +117,7 @@ export const AddTaskForm: React.FC = () => {
         maxRows={6}
       />
 
+      {/* Селект: категория задачи */}
       <SelectField
         label="Категория"
         placeholder="Выберите категорию"
@@ -108,6 +133,7 @@ export const AddTaskForm: React.FC = () => {
         {renderSelectOptions(categoryOptions)}
       </SelectField>
 
+      {/* Селект: статус задачи */}
       <SelectField
         label="Статус"
         placeholder="Выберите статус"
@@ -121,6 +147,7 @@ export const AddTaskForm: React.FC = () => {
         {renderSelectOptions(statusOptions)}
       </SelectField>
 
+      {/* Селект: приоритет задачи */}
       <SelectField
         label="Приоритет"
         placeholder="Выберите приоритет"
@@ -136,6 +163,7 @@ export const AddTaskForm: React.FC = () => {
         {renderSelectOptions(priorityOptions)}
       </SelectField>
 
+      {/* Кнопки действий */}
       <div className={styles.buttons}>
         <Button appearance="secondary" onClick={handleCancel} dimension="m">
           Отмена

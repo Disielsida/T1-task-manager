@@ -4,11 +4,18 @@ import { BaseModal } from "@shared/ui/BaseModal";
 import styles from "./DeleteTaskModalConfirm.module.css";
 
 interface Props {
+  /** Флаг открытия модального окна */
   isOpen: boolean;
+  /** Обработчик закрытия модалки */
   onClose: () => void;
+  /** Обработчик подтверждения удаления */
   onConfirm: () => void;
 }
 
+/**
+ * Компонент модального окна подтверждения удаления задачи.
+ * Показывается при isOpen=true и вызывает callbacks при подтверждении или отмене.
+ */
 export const DeleteTaskConfirmModal: React.FC<Props> = ({
   isOpen,
   onClose,
